@@ -10,6 +10,13 @@ import json
 import requests
 import pandas
 import datetime
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.finance as mpf
+from matplotlib.dates import date2num
+
+
 """
 exchange = ccxt.bitflyer({
 'apiKey': '#', #ご自身のものに変更ください
@@ -39,7 +46,7 @@ query = {"periods":','.join(periods)}
 
 #cryptowathのREST APIからohlc取得
 res = json.loads(requests.get("https://api.cryptowat.ch/markets/bitflyer/btcfxjpy/ohlc",params=query).text)["result"]
-clmList=["open","high","low","close","amount"]#データフレームカラム定義
+clmList=["open","high","low","close"]#データフレームカラム定義
 idxList=[]#データフレームインデックスリスト定義
 for period in periods:
     ohlcs = pandas.DataFrame()
@@ -47,13 +54,25 @@ for period in periods:
     row = res[period]
     length = len(row)
 
-    for column in row[:length-20:-1]:
-        column[0] = datetime.datetime.fromtimestamp(column[0]).strftime( '%Y-%m-%d %H:%M:%S' )
+    for column in row[:length-101:-1]:
+        column[0] = datetime.datetime.fromtimestamp(column[0])
         idxList.append(column[0])
-        m = pandas.DataFrame([[column[1],column[2],column[3],column[4],column[5]]])
+        m = pandas.DataFrame([[column[1],column[2],column[3],column[4]]])
         ohlcs=ohlcs.append(m)
         ohlcs.index = idxList
     ohlcs.columns = clmList
 
     print(ohlcs)
     idxList.clear()
+    # グラフにプロット
+
+fig = plt.figure()
+ax = plt.subplot()
+xdate = [x.date() for x in ohlcs.index]
+ohlc = np.vstack((date2num(xdate), ohlcs.values.T)).T
+mpf.candlestick_ohlc(ax, ohlc, width=0.7, colorup='g', colordown='r',alpha=0.5)
+ax.grid()
+ax.set_xlim(ohlcs.index[-1].date(), ohlcs.index[-0].date())
+fig.autofmt_xdate()
+plt.title("day ohlc BTCFX/JPY")
+plt.show() # 画像表示

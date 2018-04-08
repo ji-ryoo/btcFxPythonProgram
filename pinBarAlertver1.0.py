@@ -70,9 +70,17 @@ fig = plt.figure()
 ax = plt.subplot()
 xdate = [x.date() for x in ohlcs.index]
 ohlc = np.vstack((date2num(xdate), ohlcs.values.T)).T
-mpf.candlestick_ohlc(ax, ohlc, width=0.7, colorup='g', colordown='r',alpha=0.5)
+mpf.candlestick_ohlc(ax, ohlc, width=0.7, colorup='g', colordown='r',alpha=1)
 ax.grid()
 ax.set_xlim(ohlcs.index[-1].date(), ohlcs.index[-0].date())
 fig.autofmt_xdate()
+s = pandas.Series(ohlcs['close'])
+sma25 = s.rolling(window=25).mean()
+sma5 = s.rolling(window=5).mean()
+plt.plot(ohlcs.index, sma5)
+plt.plot(ohlcs.index, sma25)
+x=[ohlcs.index[90].date(),ohlcs.index[9].date()]
+y=[700000,1000000]
+plt.plot(x,y)
 plt.title("day ohlc BTCFX/JPY")
 plt.show() # 画像表示

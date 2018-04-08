@@ -3,11 +3,7 @@
     "^(node_modules|bower_components|\\.imdone|target|build|dist|logs|flow-typed|imdone-export.json)[\\/\\\\]?|\\.(git|svn|hg|npmignore)|\\~$|\\.(jpg|png|gif|swp|ttf|otf)$"
   ],
   "watcher": true,
-<<<<<<< HEAD
-  "keepEmptyPriority": false,
-=======
   "keepEmptyPriority": true,
->>>>>>> 387b02ddce8771fd2b86404ae263f37fb47ded0b
   "code": {
     "include_lists": [
       "TODO",
@@ -21,23 +17,11 @@
       "XXX",
       "IDEA",
       "NOTE",
-<<<<<<< HEAD
-      "REVIEW"
-    ]
-  },
-  "lists": [
-    {
-      "name": "addpinbaralart",
-      "hidden": false
-    }
-  ],
-=======
       "REVIEW",
       "MARK"
     ]
   },
   "lists": [],
->>>>>>> 387b02ddce8771fd2b86404ae263f37fb47ded0b
   "marked": {
     "gfm": true,
     "tables": true,
@@ -45,13 +29,10 @@
     "pedantic": false,
     "smartLists": true,
     "langPrefix": "language-"
-<<<<<<< HEAD
-=======
   },
   "sync": {
     "id": "5ac997387125ba1c083a0bb1",
     "name": "ji-ryoo/btcFxPythonProgram",
     "useImdoneioForPriority": true
->>>>>>> 387b02ddce8771fd2b86404ae263f37fb47ded0b
   }
 }

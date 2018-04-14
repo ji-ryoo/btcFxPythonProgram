@@ -7,7 +7,7 @@ import yaml
 
 def line(Me):
 
-    yaml_dict = yaml.load(open('etc.yaml').read())
+    yaml_dict = yaml.load(open('./etc.yaml').read())
     token= yaml_dict['line_notify_token']
     line_notify_token = token #先程発行したコードを貼ります
     line_notify_api = 'https://notify-api.line.me/api/notify'
